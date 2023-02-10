@@ -17,17 +17,21 @@ producer = KafkaProducer(
     value_serializer = serializer
     )
 
+def helper(m):
+    print(f'Sending msg @ {datetime.now()} | Message = {str(m)}' )
+    producer.send(topic, m)
+    producer.flush()
+
+
+
 if __name__ == '__main__':
-    while True:
-        # binary
-        # msg = b'hi from stella!!!'
-        msg = generate_message()
 
-        print(f'Sending msg @ {datetime.now()} | Message = {str(msg)}' )
-        producer.send(topic, msg)
-        producer.flush()
+    # binary
+    # msg = b'hi from stella!!!'
+    generate_message(helper)
 
-        time.sleep(10)
+
+
 
 
 
