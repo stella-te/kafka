@@ -15,8 +15,8 @@ consumer = KafkaConsumer(
 if __name__  == '__main__':
 
     for msg in consumer:
-        print(f'Receiving msg @ {datetime.now()} | Message = {str(msg)}' )
-
+        # print(f'Receiving msg @ {datetime.now()} | Message = {str(msg)}' )
+        print(msg.value.decode('ascii'))
 
 
 

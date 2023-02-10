@@ -14,16 +14,17 @@ te.subscribe('TSLA:US')
 def on_message(ws, msg):
     global cb
 
-    price = json.loads(msg)['price']
-    # Timestamp of last market price (epoch)
-    datetime = json.loads(msg)['dt']
-    msg = {"s":"TSLA:US","p":price,"d":datetime,"source":"APISTREAM","origin_script":"message.py"}
-    # print('on_message', msg)
-    #helper(msg)
-    cb(msg)
+    if 'price' in msg:
+        price = json.loads(msg)['price']
+        # Timestamp of last market price (epoch)
+        datetime = json.loads(msg)['dt']
+        msg = {"s":"TSLA:US","p":price,"d":datetime,"source":"APISTREAM","origin_script":"message.py"}
+        # print('on_message', msg)
+        #helper(msg)
+        cb(msg)
 
 
-    time.sleep(10)
+        # time.sleep(10)
 
 def generate_message(v):
     # msg = {'user_id': 1, 'recipient_id': 2, 'message': 'hi from stella' }
