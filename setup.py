@@ -1,3 +1,26 @@
+sudo ssh -i university.pem ubuntu@18.206.150.247
+
+cd /etc/supervisor/
+sudo nano supervisord.conf
+nano alt+6 copy ctrl+u paste
+
+**********************************************
+cd /home/ubuntu/kafka_2.13-3.2.3/bin
+
+./kafka-topics.sh --list --bootstrap-server localhost:9092
+
+./kafka-topics.sh --describe --topic stella_stream --bootstrap-server localhost:9092
+
+./kafka-console-consumer.sh --topic stella_stream --from-beginning --bootstrap-server localhost:9092
+
+cd ../../opt/stella/
+python3 producer.py
+
+-------------------------------------------------
+./kafka-console-producer.sh --topic stella_stream --bootstrap-server localhost:9092
+./kafka-console-producer.sh --broker-list PLAINTEXT://localhost:9092 --topic stella_stream
+
+************************************************
 te.login('3aecf53b46e647f:dqfs4pyvdzdxo5y')
 
 docker
@@ -40,7 +63,7 @@ kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --par
 ./kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic stella_stream
 ./kafka-topics.sh --create --topic stella_stream --bootstrap-server localhost:9092
 
-# localhost 
+# localhost
 kafka-topics.sh --list --zookeeper zookeeper:2181
 ./kafka-topics.sh --list --bootstrap-server localhost:9092
 ./kafka-topics.sh --describe --topic stella_stream --bootstrap-server localhost:9092
@@ -77,6 +100,5 @@ kill -9 76048
 
 
 
-# end
 
 # end
