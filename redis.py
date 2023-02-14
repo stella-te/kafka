@@ -19,9 +19,12 @@ def save_redis_cache():
         # localhost:6379 (the default)
         # r = redis.Redis()
         # r.ping()
-        r = redis.Redis(host=host, password=password, port=port)
-        r.set('Commodities', data)
-        print(f'Saving cache on redis @ {datetime.now()} | Message = {str(data)}' )
+        if ((type(data) is list) and len(data) > 0):
+            print('1')
+            r = redis.Redis(host=host, password=password, port=port)
+            print('r')
+            r.set('Commodities', data)
+            print(f'Saving cache on redis @ {datetime.now()} | Message = {str(data)}' )
     except:
         print('redis error')
 

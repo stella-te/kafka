@@ -3,6 +3,17 @@ sudo ssh -i university.pem ubuntu@18.206.150.247
 cd /etc/supervisor/
 sudo nano supervisord.conf
 nano alt+6 copy ctrl+u paste
+sudo supervisorctl reread
+sudo supervisorctl update
+
+cd ../../opt/stella/redis
+python3 redis.py
+
+# linux
+virtualenv -p python3 /tmp/VIRTUAL
+source /tmp/VIRTUAL/bin/activate
+which python3
+
 
 **********************************************
 cd /home/ubuntu/kafka_2.13-3.2.3/bin
