@@ -1,11 +1,5 @@
 sudo ssh -i university.pem ubuntu@18.206.150.247
 
-cd /etc/supervisor/
-sudo nano supervisord.conf
-nano alt+6 copy ctrl+u paste
-sudo supervisorctl reread
-sudo supervisorctl update
-
 cd ../../opt/stella/redis
 python3 circulate.py
 
@@ -13,6 +7,13 @@ sudo rm -r kafka/
 
 sudo git clone https://github.com/stella-te/kafka
 
+
+
+cd /etc/supervisor/
+sudo nano supervisord.conf
+nano alt+6 copy ctrl+u paste
+sudo supervisorctl reread
+sudo supervisorctl update
 
 **********************************************
 # linux

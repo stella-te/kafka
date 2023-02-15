@@ -16,22 +16,22 @@ print('connected')
 
 def save_redis_cache():
     try:
-        data = te.getMarketsData(marketsField='commodities')
-
-        if ((type(data) is list) and len(data) > 0):
+        # data = te.getMarketsData(marketsField='index')
+        data = te.getMarketsBySymbol(symbols='tsla:us')
+        if data[0]['Close']:
             data = json.dumps(data).encode('utf-8')
-            r.set('Commodities', data)
+            r.set('tsla ', data)
             print(f'Saving cache on redis @ {datetime.now()} | Message = {str(data)}' )
     except:
         print('redis error')
 
-save_redis_cache()
+# save_redis_cache()
 
-# if __name__ == '__main__':
-    # while True:
-        # save_redis_cache()
-        # 12*60*60
-        # time.sleep(43200)
+if __name__ == '__main__':
+    while True:
+        save_redis_cache()
+        12*60*60
+        time.sleep(43200)
 
 
 # end
