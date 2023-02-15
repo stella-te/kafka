@@ -31,6 +31,8 @@ cd /home/ubuntu/kafka_2.13-3.2.3/bin
 
 ./kafka-console-consumer.sh --topic stella_stream --from-beginning --bootstrap-server localhost:9092
 
+./kafka-topics.sh --create --topic stella_markets --bootstrap-server localhost:9092
+
 cd ../../opt/stella/
 python3 producer.py
 

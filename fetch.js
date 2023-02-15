@@ -30,18 +30,16 @@ async function clientGet(key) {
   return client.get(key);
 }
 
+// const generate_message = function() {
+//   let obj = {
+//
+//   }
+// }
+
 const run = async () => {
   await client.connect()
   var s = await clientGet('tsla')
-  // Producing
-  // await producer.connect()
-  // await producer.send({
-  //   topic: 'stella_stream',
-  //   messages: [
-  //     { value: 'Hello KafkaJS user!' },
-  //   ],
-  //
-  // })
+
   await consumer.connect()
     await consumer.subscribe({ topic: 'stella_stream', fromBeginning: false })
 
@@ -50,13 +48,31 @@ const run = async () => {
 
         msg = JSON.parse(message.value)
         ssg = JSON.parse(s)
-        var diff = msg.p - ssg[0].Close
-        var pct = (diff * 100) / ssg[0].Close
-        console.log('p', msg.p, 'close', seg[0].Close, 'diff', diff, 'percentage', pct)
+        close = ssg[0].Close
+        var diff = msg.p - close
+        var pct = (diff * 100) / close
+        console.log('p', msg.p, 'close', close, 'diff', diff, 'percentage', pct)
         console.log({
           partition,
           offset: message.offset,
           value: message.value.toString(),
+        })
+        // Producing
+        await producer.connect()
+        await producer.send({
+          topic: 'stella_markets',
+          messages: [
+            { value: {"s":msg.s},
+            "p":msg.p,
+            "prev":close,
+            "nch":diff,
+            "pch":pct,
+            "dt":msg.d,
+            "type":"tsla:us",
+            "origin_script":"fetch.js",
+            "source":"APISTREAM"} },
+          ],
+
         })
       },
     })
