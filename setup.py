@@ -7,8 +7,9 @@ sudo supervisorctl reread
 sudo supervisorctl update
 
 cd ../../opt/stella/redis
-python3 redis.py
+python3 circulate.py
 
+**********************************************
 # linux
 virtualenv -p python3 /tmp/VIRTUAL
 source /tmp/VIRTUAL/bin/activate
