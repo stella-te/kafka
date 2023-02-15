@@ -57,22 +57,29 @@ const run = async () => {
           offset: message.offset,
           value: message.value.toString(),
         })
+
+        let obj = {
+          {"s":msg.s},
+          "p":msg.p,
+          "prev":close,
+          "nch":diff,
+          "pch":pct,
+          "dt":msg.d,
+          "type":"tsla:us",
+          "origin_script":"fetch.js",
+          "source":"APISTREAM"
+        }
+
+
         // Producing
         await producer.connect()
         await producer.send({
           topic: 'stella_markets',
           messages: [
-            { value: {"s":msg.s},
-            "p":msg.p,
-            "prev":close,
-            "nch":diff,
-            "pch":pct,
-            "dt":msg.d,
-            "type":"tsla:us",
-            "origin_script":"fetch.js",
-            "source":"APISTREAM"} },
+            { value: JSON.stringify(obj);}
           ],
-
+        console.log('Sending msg @ ' + new Date().toLocalString()
+        + '| Message = ' + JSON.stringify(obj))
         })
       },
     })

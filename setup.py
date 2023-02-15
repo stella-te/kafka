@@ -7,11 +7,11 @@ sudo rm -r kafka/
 
 sudo git clone https://github.com/stella-te/kafka
 
-
+vim shift+v j c p
+nano alt+6 y c ctrl+u p
 
 cd /etc/supervisor/
-sudo nano supervisord.conf
-nano alt+6 copy ctrl+u paste
+sudo vim supervisord.conf
 sudo supervisorctl reread
 sudo supervisorctl update
 
