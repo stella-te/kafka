@@ -9,6 +9,11 @@ sudo supervisorctl update
 cd ../../opt/stella/redis
 python3 circulate.py
 
+sudo rm -r kafka/
+
+sudo git clone https://github.com/stella-te/kafka
+
+
 **********************************************
 # linux
 virtualenv -p python3 /tmp/VIRTUAL

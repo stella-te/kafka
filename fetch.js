@@ -13,6 +13,7 @@ const client = redis.createClient({
         port: 6379
     },
     password: 'university'
+
 });
 
 
@@ -20,32 +21,35 @@ client.on('error', err => {
     console.log('Error ' + err);
 });
 
-// const run = async () => {
-//   // Producing
-//   await producer.connect()
-//   await producer.send({
-//     topic: 'test-topic',
-//     messages: [
-//       { value: 'Hello KafkaJS user!' },
-//     ],
-//   })
-
 const producer = kafka.producer()
-
 const consumer = kafka.consumer({ groupId: 'stella-fetch-app' })
 
-await consumer.connect()
-  await consumer.subscribe({ topic: 'stella_stream', fromBeginning: true })
+const run = async () => {
+  await client.connect()
+  // Producing
+  await producer.connect()
+  await producer.send({
+    topic: 'stella_stream',
+    messages: [
+      { value: 'Hello KafkaJS user!' },
+    ],
 
-  await consumer.run({
-    eachMessage: async ({ topic, partition, message }) => {
-      console.log({
-        partition,
-        offset: message.offset,
-        value: message.value.toString(),
-      })
-    },
   })
-}
+  await consumer.connect()
+    await consumer.subscribe({ topic: 'stella_stream', fromBeginning: true })
+
+    await consumer.run({
+      eachMessage: async ({ topic, partition, message }) => {
+        console.log({
+          partition,
+          offset: message.offset,
+          value: message.value.toString(),
+        })
+      },
+    })
+  }
+
+
+
 
 run().catch(console.error)
